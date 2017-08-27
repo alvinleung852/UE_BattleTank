@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 #include "Projectile.generated.h"
 
 UCLASS()
@@ -20,6 +21,10 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
-	
+	void LaunchProjectile(float Speed);
+
+private:
+
+	UProjectileMovementComponent* ProjectileMovement = nullptr;
 	
 };
