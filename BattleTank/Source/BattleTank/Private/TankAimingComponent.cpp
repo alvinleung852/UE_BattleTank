@@ -28,7 +28,6 @@ void UTankAimingComponent::AimAt(FVector WorldSpaceAim, float LaunchSpeed) {
 	if (UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, WorldSpaceAim, LaunchSpeed, false, 0, 0, ESuggestProjVelocityTraceOption::DoNotTrace)) {
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);		
-		MoveTurretTowards(AimDirection);
 	}
 	else {
 		auto Time = GetWorld()->GetTimeSeconds();
@@ -43,10 +42,12 @@ void UTankAimingComponent::AimAt(FVector WorldSpaceAim, float LaunchSpeed) {
 }
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet) {
+	if (!BarrelToSet) { return; }
 	Barrel = BarrelToSet;
 }
 
 void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet) {
+	if (!TurretToSet) { return; }
 	Turret = TurretToSet;
 }
 
@@ -57,21 +58,6 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) {
 
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
-	//UE_LOG(LogTemp, Warning, TEXT("Rotation to: %s"), *DeltaRotator.ToString());
-
 	Barrel->Elevate(DeltaRotator.Pitch);
-}
-
-void UTankAimingComponent::MoveTurretTowards(FVector AimDirection) {
-	auto TurretRotator = Turret->GetForwardVector().Rotation();
-
-	auto Time = GetWorld()->GetTimeSeconds();	
-
-	auto AimAsRotator = AimDirection.Rotation();
-
-	auto DeltaRotator = AimAsRotator - TurretRotator;	
-
-	UE_LOG(LogTemp, Warning, TEXT("Rotation to: %f"), DeltaRotator.Yaw);
-
 	Turret->Rotation(DeltaRotator.Yaw);
 }
