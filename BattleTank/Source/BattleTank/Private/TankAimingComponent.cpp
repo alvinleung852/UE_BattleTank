@@ -29,16 +29,6 @@ void UTankAimingComponent::AimAt(FVector WorldSpaceAim, float LaunchSpeed) {
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);		
 	}
-	else {
-		auto Time = GetWorld()->GetTimeSeconds();
-		//UE_LOG(LogTemp, Warning, TEXT("%f, Aim not found"), Time);
-	}
-
-	//auto RotationAt = Turret->GetComponentRotation();
-
-	//UE_LOG(LogTemp, Warning, TEXT("Rotation to: %s"), *OutLaunchVelocity.GetSafeNormal().ToString());
-
-	//MoveTurretTowards(WorldSpaceAim);
 }
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet) {
