@@ -6,8 +6,6 @@
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
-class ATank;
-
 /**
  * 
  */
@@ -23,11 +21,4 @@ private:
 
 	//How close can the AI tank get
 	float AcceptanceRadius = 3000;
-
-	/*ATank* GetControlledTank() const;
-	ATank* GetPlayerTank() const;*/
-
-	
-	
-	
 };
